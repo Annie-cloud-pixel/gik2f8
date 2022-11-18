@@ -12,15 +12,17 @@ const bookList = [
     title: 'Hamlet'
   }
 ];
-const searchInput = null;
 
-function handleKeyPress(input) {
+/* const searchField = document.children[0].children[1].children[1].children[1]; */
+searchField.addEventListener('keyup', handleKeyPress);
+
+function handleKeyPress(e) {
   /*  Ta emot/läsa av värdet i inputfältet. 
       Skicka värdet till searchBooks
       searchBooks returnerar en filtrerad lista
       Filtrerade listan skickas till renderBookList
   */
-  searchBooks(input);
+  searchBooks(e.target.value);
 }
 
 function searchBooks(searchTerm) {
@@ -40,10 +42,17 @@ function searchBooks(searchTerm) {
   renderBookList(filteredList);
 }
 
-function renderBookList(list) {
+function renderBookList(bookList) {
   /* Element i HTML-listan visas/döljs beroende på listans innehåll.  */
-  console.log(list);
+
+  const existingElement = document.querySelector('.book-list');
+  console.log(existingElement);
+
+  const root = document.getElementById('root');
+  if (existingElement) {
+    root.removeChild(existingElement);
+  }
+  if (bookList.length > 0) {
+    root.insertAdjacentHTML('beforeend', BookList(bookList));
+  }
 }
-
-handleKeyPress('e');
-
